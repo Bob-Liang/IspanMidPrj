@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrjEIP.models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace PrjEIP.views
 {
     public partial class FrmMain : Form
     {
+        CUservice CUservice=new CUservice();
+
         public FrmMain()
         {
             InitializeComponent();
@@ -20,6 +23,22 @@ namespace PrjEIP.views
         private void FrmMain_Load(object sender, EventArgs e)
         {
             (new FrmLogIn()).ShowDialog();
+            FrmLogIn frm = new FrmLogIn();
+            setButtonVisibility(frm.checkCurrentUser());
+        }
+
+        //寫一個方法,依照輸入的權限控制顯示按鈕的狀態
+        private void setButtonVisibility(string userId)
+        {
+            UserRole role = CUservice.GetUserRole(userId);
+            if (role == UserRole.Admin)
+            {
+                toolStripButton2.Visible = true;
+            }
+            else
+            {
+                toolStripButton2.Visible = false;
+            }
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)

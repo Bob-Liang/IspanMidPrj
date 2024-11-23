@@ -14,6 +14,12 @@ using System.Windows.Forms;
 
 namespace PrjEIP.views
 {
+    public enum UserRole
+    {
+        Admin,
+        User,
+        Guset
+    }
     public partial class FrmLogIn : Form
     {
         private bool isClosde = true;
@@ -31,9 +37,9 @@ namespace PrjEIP.views
             //set { }
         }
         //這個方法可以獲取到登入者帳號對應之使用者ID,並且已經將它存入到Employee裡面,直接new出來即可存取到使用者ID的資料
-        private string checkCurrentUser()
+        public string checkCurrentUser()
         {
-            string sql = "SELECT fEmpId FROM Employee WHERE fEmpAccount = @K_Account";
+            string sql = "SELECT fEmpAccount FROM Employee WHERE fEmpAccount = @K_Account";
             string currentUserId = "";
             //使用資料庫把登入帳號對應的EmpId塞到上面的變數,並且讓這個方法return
             using (SqlConnection con = new SqlConnection(@"Data Source=.;Initial Catalog=PrjEIP;Integrated Security=True;"))
@@ -47,7 +53,7 @@ namespace PrjEIP.views
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
-                                currentUserId = reader["fEmpId"].ToString();
+                                currentUserId = reader["fEmpAccount"].ToString();
                             con.Close();
                         }
                     }

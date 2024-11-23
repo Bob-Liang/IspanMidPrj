@@ -183,6 +183,7 @@
     <Compile Include="models\CEmployee.cs" />
     <Compile Include="models\CEmpManager.cs" />
     <Compile Include="models\CPasswordStrengthChecker.cs" />
+    <Compile Include="models\CUservice.cs" />
     <Compile Include="models\fieldbox.cs">
       <SubType>UserControl</SubType>
     </Compile>
